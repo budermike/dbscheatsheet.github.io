@@ -3,240 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SQL Cheat Sheet</title>
+<title>DB Cheat Sheet</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #0f1117;
-    --bg2: #161820;
-    --bg3: #1e2030;
-    --bg4: #252840;
-    --border: #2e3250;
-    --border2: #3d4270;
-    --text: #e2e4f0;
-    --muted: #8890b0;
-    --hint: #555d80;
-    --blue: #7aa2f7;
-    --blue-bg: #1a2040;
-    --blue-text: #7aa2f7;
-    --green: #9ece6a;
-    --green-bg: #1a2a10;
-    --green-text: #9ece6a;
-    --amber: #e0af68;
-    --amber-bg: #2a2010;
-    --amber-text: #e0af68;
-    --purple: #bb9af7;
-    --teal: #73daca;
-    --coral: #f7768e;
+    --bg: #0f1117; --bg2: #161820; --bg3: #1e2030; --bg4: #252840;
+    --border: #2e3250; --border2: #3d4270;
+    --text: #e2e4f0; --muted: #8890b0; --hint: #555d80;
+    --blue: #7aa2f7; --blue-bg: #1a2040;
+    --green: #9ece6a; --green-bg: #1a2a10;
+    --amber: #e0af68; --amber-bg: #2a2010;
+    --teal: #73daca; --purple: #bb9af7;
     --mono: 'JetBrains Mono', monospace;
     --sans: 'Sora', sans-serif;
-    --radius: 10px;
-    --radius-sm: 6px;
+    --radius: 10px; --radius-sm: 6px;
   }
-
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
-
-  .page {
-    max-width: 820px;
-    margin: 0 auto;
-  }
-
-  header {
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .logo-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #7aa2f7 0%, #bb9af7 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--mono);
-    font-weight: 500;
-    font-size: 15px;
-    color: #0f1117;
-  }
-
-  h1 {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: -0.02em;
-  }
-
-  .subtitle {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  .badge-header {
-    font-size: 12px;
-    color: var(--hint);
-    font-family: var(--mono);
-  }
-
-  .tabs {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 1.5rem;
-    background: var(--bg2);
-    padding: 4px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-  }
-
-  .tab {
-    flex: 1;
-    padding: 9px 12px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    transition: all 0.15s;
-    font-family: var(--sans);
-    text-align: center;
-  }
-
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem; }
+  .page { max-width: 860px; margin: 0 auto; }
+  header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: flex-end; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #7aa2f7 0%, #bb9af7 100%); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-weight: 500; font-size: 13px; color: #0f1117; }
+  h1 { font-size: 22px; font-weight: 600; color: var(--text); letter-spacing: -0.02em; }
+  .subtitle { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .badge-header { font-size: 12px; color: var(--hint); font-family: var(--mono); }
+  .tabs { display: flex; gap: 3px; margin-bottom: 1.5rem; background: var(--bg2); padding: 4px; border-radius: var(--radius); border: 1px solid var(--border); flex-wrap: wrap; }
+  .tab { flex: 1; min-width: 110px; padding: 8px 8px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid transparent; background: transparent; color: var(--muted); transition: all 0.15s; font-family: var(--sans); text-align: center; }
   .tab:hover:not(.active) { color: var(--text); background: var(--bg3); }
-
-  .tab.active {
-    background: var(--bg4);
-    color: var(--text);
-    border: 1px solid var(--border2);
-  }
-
+  .tab.active { background: var(--bg4); border-color: var(--border2); }
+  .tab.active.ra  { color: var(--teal); }
+  .tab.active.drc { color: var(--purple); }
   .tab.active.drl { color: var(--blue); }
   .tab.active.dml { color: var(--green); }
   .tab.active.ddl { color: var(--amber); }
-
   .panel { display: none; }
   .panel.active { display: block; }
-
   .section { margin-bottom: 1.75rem; }
-
-  .section-title {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--hint);
-    margin-bottom: 10px;
-    padding-left: 2px;
-  }
-
-  .card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    margin-bottom: 8px;
-    transition: border-color 0.15s;
-  }
-
+  .section-title { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--hint); margin-bottom: 10px; padding-left: 2px; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 8px; transition: border-color 0.15s; }
   .card:hover { border-color: var(--border2); }
-
-  .cmd-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 7px;
-    flex-wrap: wrap;
-  }
-
-  .cmd-name {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .badge {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 999px;
-    font-family: var(--sans);
-    font-weight: 500;
-  }
-
-  .badge-drl { background: var(--blue-bg); color: var(--blue-text); border: 1px solid #2a3a70; }
-  .badge-dml { background: var(--green-bg); color: var(--green-text); border: 1px solid #2a4020; }
-  .badge-ddl { background: var(--amber-bg); color: var(--amber-text); border: 1px solid #4a3820; }
-
-  .desc {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.55;
-    margin-bottom: 9px;
-  }
-
-  .code {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: #c0caf5;
-    line-height: 1.7;
-    white-space: pre;
-    overflow-x: auto;
-  }
-
-  .kw { color: #bb9af7; font-weight: 500; }
+  .cmd-header { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
+  .cmd-name { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; font-family: var(--sans); font-weight: 500; }
+  .badge-drl { background: var(--blue-bg); color: var(--blue); border: 1px solid #2a3a70; }
+  .badge-dml { background: var(--green-bg); color: var(--green); border: 1px solid #2a4020; }
+  .badge-ddl { background: var(--amber-bg); color: var(--amber); border: 1px solid #4a3820; }
+  .badge-ra  { background: #102a28; color: var(--teal); border: 1px solid #1a4040; }
+  .badge-drc { background: #1e1030; color: var(--purple); border: 1px solid #3a2060; }
+  .desc { font-size: 13px; color: var(--muted); line-height: 1.55; margin-bottom: 9px; }
+  .code { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; font-family: var(--mono); font-size: 12px; color: #c0caf5; line-height: 1.8; white-space: pre; overflow-x: auto; }
+  .kw  { color: #bb9af7; font-weight: 500; }
   .str { color: #9ece6a; }
   .num { color: #ff9e64; }
   .cmt { color: #565f89; font-style: italic; }
-
-  .note {
-    font-size: 12px;
-    color: var(--hint);
-    margin-top: 7px;
-    padding-left: 10px;
-    border-left: 2px solid var(--border2);
-    font-style: italic;
-    line-height: 1.5;
-  }
-
-  .warn {
-    font-size: 12px;
-    color: #f7768e;
-    margin-top: 7px;
-    padding: 6px 10px;
-    background: #2a1020;
-    border-radius: var(--radius-sm);
-    border: 1px solid #4a2030;
-  }
-
-  @media (max-width: 600px) {
-    .tab { font-size: 12px; padding: 8px 6px; }
-    h1 { font-size: 18px; }
-    header { flex-direction: column; align-items: flex-start; gap: 8px; }
-  }
+  .op  { color: #73daca; font-weight: 500; }
+  .var { color: #7aa2f7; }
+  .note { font-size: 12px; color: var(--hint); margin-top: 7px; padding-left: 10px; border-left: 2px solid var(--border2); font-style: italic; line-height: 1.5; }
+  .warn { font-size: 12px; color: #f7768e; margin-top: 7px; padding: 6px 10px; background: #2a1020; border-radius: var(--radius-sm); border: 1px solid #4a2030; }
+  .sym-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 4px; }
+  .sym-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .sym-table tr:last-child td { border-bottom: none; }
+  .sym-table td:first-child { font-family: var(--mono); color: var(--teal); width: 60px; }
+  .sym-table td:nth-child(2) { color: var(--muted); width: 180px; }
+  .sym-table td:nth-child(3) { color: #c0caf5; font-family: var(--mono); font-size: 11px; }
+  .sym-table.drc td:first-child { color: var(--purple); }
+  @media (max-width: 600px) { .tab { font-size: 11px; padding: 7px 4px; min-width: 80px; } h1 { font-size: 18px; } header { flex-direction: column; align-items: flex-start; gap: 8px; } }
 </style>
 </head>
 <body>
@@ -244,23 +75,223 @@
 
 <header>
   <div class="logo">
-    <div class="logo-icon">SQL</div>
+    <div class="logo-icon">DB</div>
     <div>
-      <h1>SQL Cheat Sheet</h1>
-      <div class="subtitle">Database Systems — Chapter 4</div>
+      <h1>Database Systems Cheat Sheet</h1>
+      <div class="subtitle">Relational Algebra · DRC · DRL · DML · DDL</div>
     </div>
   </div>
-  <div class="badge-header">DRL · DML · DDL</div>
+  <div class="badge-header">Chapter 3 &amp; 4</div>
 </header>
 
 <div class="tabs">
-  <button class="tab active drl" onclick="show('drl', this)">DRL — Abfragen</button>
-  <button class="tab dml" onclick="show('dml', this)">DML — Daten ändern</button>
-  <button class="tab ddl" onclick="show('ddl', this)">DDL — Schema definieren</button>
+  <button class="tab active ra"  onclick="show('ra',  this)">Relational Algebra</button>
+  <button class="tab drc"        onclick="show('drc', this)">DRC</button>
+  <button class="tab drl"        onclick="show('drl', this)">DRL — Abfragen</button>
+  <button class="tab dml"        onclick="show('dml', this)">DML — Daten ändern</button>
+  <button class="tab ddl"        onclick="show('ddl', this)">DDL — Schema</button>
 </div>
 
-<!-- DRL -->
-<div id="drl" class="panel active">
+<!-- ══════════════════════════ RELATIONAL ALGEBRA ══════════════════════════ -->
+<div id="ra" class="panel active">
+
+  <div class="section">
+    <div class="section-title">Symbolübersicht</div>
+    <div class="card">
+      <table class="sym-table">
+        <tr><td>π</td><td>Projektion</td><td>π_{A₁,...,Aₙ}(R)  — Spalten wählen</td></tr>
+        <tr><td>σ</td><td>Selektion</td><td>σ_p(R)  — Zeilen filtern</td></tr>
+        <tr><td>ρ</td><td>Umbenennung</td><td>ρ_{B←A}(R)  — Attribut umbenennen</td></tr>
+        <tr><td>×</td><td>Kartesisches Produkt</td><td>R × S</td></tr>
+        <tr><td>⋈</td><td>Join (Theta / Natural)</td><td>R ⋈_p S</td></tr>
+        <tr><td>⟕ ⟖ ⟗</td><td>Outer Joins L / R / Full</td><td>R ⟕ S</td></tr>
+        <tr><td>⋉ ⋊</td><td>Semi-Join L / R</td><td>R ⋉ S</td></tr>
+        <tr><td>÷</td><td>Division</td><td>T ÷ R  — universelle Quantifizierung</td></tr>
+        <tr><td>∪ ∩ \</td><td>Union / Schnitt / Differenz</td><td>R ∪ S</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Unäre Operatoren</div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Projektion — π</span><span class="badge badge-ra">Spalten wählen</span></div>
+      <div class="desc">Wählt Teilmenge von Attributen aus. Entfernt Duplikate (Mengensemantik). Äquivalent zu SELECT in SQL.</div>
+      <div class="code"><span class="op">π</span><span class="var">_name</span>(student)
+<span class="op">π</span><span class="var">_name, date_of_birth</span>(student)</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Selektion — σ</span><span class="badge badge-ra">Zeilen filtern</span></div>
+      <div class="desc">Wählt Tupel die Prädikat p erfüllen. Vergleiche: =, &lt;, ≤, &gt;, ≥. Kombinieren mit ∧, ∨, ¬.</div>
+      <div class="code"><span class="op">σ</span><span class="var">_{stud_no ≤ 3}</span>(student)
+<span class="op">σ</span><span class="var">_{stud_no ≤ 3 ∧ date_of_birth > 1991-01-01}</span>(student)</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Umbenennung — ρ</span><span class="badge badge-ra">Namenskonflikte lösen</span></div>
+      <div class="desc">Gibt Attributen neue Namen. Nötig wenn zwei Relationen Attribute mit gleichem Namen haben.</div>
+      <div class="code"><span class="op">ρ</span><span class="var">_{a_no←pers_no, a_name←name}</span>(assistant)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Joins</div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Kartesisches Produkt — ×</span></div>
+      <div class="desc">Kombiniert jedes Tupel von R mit jedem von S. Ergebnis: |R| × |S| Tupel. Meist sinnlos ohne Selektion.</div>
+      <div class="code">lecture <span class="op">×</span> professor</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Theta-Join — ⋈_p</span><span class="badge badge-ra">Shortcut für σ_p(R×S)</span></div>
+      <div class="desc">Allgemeinster Join. Prädikat p kann beliebige Vergleichsoperatoren enthalten.</div>
+      <div class="code">lecture <span class="op">⋈</span><span class="var">_{prof_pers_no = pers_no}</span> professor</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Natural Join — ⋈</span></div>
+      <div class="desc">Equi-Join auf gleich benannten Attributen. Entfernt redundante Spalten. Umbenennung mit ρ nötig wenn Namen nicht passen.</div>
+      <div class="code"><span class="op">ρ</span><span class="var">_{pers_no←prof_pers_no}</span>(lecture) <span class="op">⋈</span> professor</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Outer Joins — ⟕ ⟖ ⟗</span></div>
+      <div class="desc">Behält Tupel ohne Join-Partner, füllt fehlende Werte mit NULL auf.</div>
+      <div class="code">L <span class="op">⟕</span> R   <span class="cmt">-- Left:  alle Tupel von L</span>
+L <span class="op">⟖</span> R   <span class="cmt">-- Right: alle Tupel von R</span>
+L <span class="op">⟗</span> R   <span class="cmt">-- Full:  alle Tupel beider</span></div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Semi-Join — ⋉ ⋊</span></div>
+      <div class="desc">Prüft welche Tupel einen Join-Partner haben — gibt aber nur die ursprüngliche Seite zurück (nicht verbunden).</div>
+      <div class="code">L <span class="op">⋉</span> R   <span class="cmt">-- Tupel von L die einen Partner in R haben</span>
+L <span class="op">⋊</span> R   <span class="cmt">-- Tupel von R die einen Partner in L haben</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Mengenoperationen & Division</div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Union / Schnitt / Differenz</span></div>
+      <div class="desc">Beide Relationen müssen dasselbe Schema haben (gleiche Attributnamen und -typen).</div>
+      <div class="code">prof1 <span class="op">∪</span> prof2   <span class="cmt">-- alle Tupel aus beiden (Duplikate entfernt)</span>
+prof1 <span class="op">∩</span> prof2   <span class="cmt">-- nur Tupel in beiden</span>
+prof1 <span class="op">\</span> prof2   <span class="cmt">-- nur Tupel in prof1, nicht in prof2</span></div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Division — ÷</span><span class="badge badge-ra">∀-Quantifizierung</span></div>
+      <div class="desc">Findet alle Werte in T die mit ALLEN Tupeln von R kombiniert werden können. Typisch für "für alle"-Queries.</div>
+      <div class="code">attends <span class="op">÷</span> lect1
+<span class="cmt">-- "Alle Studenten die ALLE Lectures in lect1 besuchen"</span>
+
+<span class="cmt">-- Formale Definition:</span>
+T <span class="op">÷</span> R = <span class="op">π</span><span class="var">_{T\R}</span>(T) <span class="op">\</span> <span class="op">π</span><span class="var">_{T\R}</span>( (<span class="op">π</span><span class="var">_{T\R}</span>(T) <span class="op">×</span> R) <span class="op">\</span> T )</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Komplexes Beispiel</div>
+    <div class="card">
+      <div class="code"><span class="cmt">-- "Namen aller Studenten die Lecture 5 besuchen"</span>
+<span class="op">π</span><span class="var">_name</span>( student <span class="op">⋈</span><span class="var">_{stud_no=stud_no}</span> (<span class="op">σ</span><span class="var">_{course_no=5}</span>(attends)) )
+
+<span class="cmt">-- Operatoren kombinieren: Ergebnis ist immer eine Relation</span>
+<span class="cmt">-- → kann als Eingabe für den nächsten Operator dienen</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════ DRC ══════════════════════════ -->
+<div id="drc" class="panel">
+
+  <div class="section">
+    <div class="section-title">Grundstruktur</div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">DRC-Ausdruck</span><span class="badge badge-drc">Deklarativ</span></div>
+      <div class="desc">Spezifiziert was man will, nicht wie es berechnet wird. Variablen stehen für Domänenwerte (Attributwerte), nicht Tupel. Gleiche Ausdrucksstärke wie RA.</div>
+      <div class="code">{ &lt;x₁, x₂, ..., xₙ&gt; | P(x₁, x₂, ..., xₙ) }
+  <span class="cmt">-- links von |: freie Variablen (erscheinen im Ergebnis)</span>
+  <span class="cmt">-- rechts von |: Prädikat P das erfüllt sein muss</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Bausteine</div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Atome — drei Formen</span></div>
+      <div class="code"><span class="var">&lt;x₁, x₂, ..., xₙ&gt; ∈ r</span>  <span class="cmt">-- Tupel in Relation r</span>
+<span class="var">x θ y</span>                   <span class="cmt">-- Vergleich zweier Variablen (θ: =,≠,&lt;,≤,&gt;,≥)</span>
+<span class="var">x θ c</span>                   <span class="cmt">-- Vergleich Variable mit Konstante c</span></div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Quantoren & logische Operatoren</span></div>
+      <table class="sym-table drc">
+        <tr><td>∃x</td><td>Existenzquantor</td><td>mind. ein Wert für x erfüllt P</td></tr>
+        <tr><td>∀x</td><td>Allquantor</td><td>alle Werte für x erfüllen P</td></tr>
+        <tr><td>∧</td><td>Konjunktion</td><td>P₁ und P₂ müssen beide wahr sein</td></tr>
+        <tr><td>∨</td><td>Disjunktion</td><td>P₁ oder P₂ (mind. eines)</td></tr>
+        <tr><td>¬</td><td>Negation</td><td>nicht P</td></tr>
+        <tr><td>⇒</td><td>Implikation</td><td>P₁ ⇒ P₂  ≡  ¬P₁ ∨ P₂</td></tr>
+        <tr><td>_</td><td>Anonyme Variable</td><td>Wert wird nicht verwendet</td></tr>
+      </table>
+      <div class="note">Freie Variablen: nicht durch ∃ oder ∀ gebunden — nur diese erscheinen links von |</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Beispiele</div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Selektion + Projektion</span></div>
+      <div class="desc">∃ bindet Variablen die nicht im Ergebnis erscheinen sollen (z.B. stud_no s).</div>
+      <div class="code"><span class="cmt">-- "Namen & Geburtsdaten aller Studenten nach 1991"</span>
+{ &lt;<span class="var">n</span>, <span class="var">d</span>&gt; | ∃<span class="var">s</span>( &lt;<span class="var">s</span>, <span class="var">n</span>, <span class="var">d</span>&gt; ∈ student ∧ <span class="var">d</span> > 1991-01-01 ) }</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Join</span></div>
+      <div class="desc">Joins entstehen implizit: dieselbe Variable in zwei Relationen erzwingt gleiche Werte (= Join-Bedingung).</div>
+      <div class="code"><span class="cmt">-- "Lecture-Titel mit zugehörigem Professorennamen"</span>
+{ &lt;<span class="var">t</span>, <span class="var">n</span>&gt; | ∃<span class="var">c</span>, <span class="var">e</span>, <span class="var">p</span>(
+    &lt;<span class="var">c</span>, <span class="var">t</span>, <span class="var">e</span>, <span class="var">p</span>&gt; ∈ lecture ∧
+    ∃<span class="var">o</span>( &lt;<span class="var">p</span>, <span class="var">n</span>, <span class="var">o</span>&gt; ∈ professor )
+)}</div>
+      <div class="note">Variable p erscheint in beiden Relationen → impliziter Equi-Join auf pers_no</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Mehrere verschachtelte Bedingungen</span></div>
+      <div class="code"><span class="cmt">-- "stud_no & Name aller Studenten die mind. 1 Prüfung</span>
+<span class="cmt">--  bei Professor Curie hatten"</span>
+{ &lt;<span class="var">s</span>, <span class="var">n</span>&gt; | ∃<span class="var">d</span>( &lt;<span class="var">s</span>, <span class="var">n</span>, <span class="var">d</span>&gt; ∈ student ∧
+    ∃<span class="var">c</span>, <span class="var">p</span>, <span class="var">g</span>( &lt;<span class="var">s</span>, <span class="var">c</span>, <span class="var">p</span>, <span class="var">g</span>&gt; ∈ exam ∧
+        ∃<span class="var">a</span>, <span class="var">o</span>( &lt;<span class="var">p</span>, <span class="var">a</span>, <span class="var">o</span>&gt; ∈ professor ∧ <span class="var">a</span> = <span class="str">"Curie"</span> )
+    )
+)}</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Universelle Quantifizierung — ∀</span></div>
+      <div class="desc">Für "für alle"-Queries. ∀ kann als ¬∃¬ umgeschrieben werden. Implikation ⇒ häufig mit ∀ kombiniert.</div>
+      <div class="code"><span class="cmt">-- "User bei denen alle Freunde mind. 1 Ski-Session haben"</span>
+{ <span class="var">UName</span> | ∃<span class="var">UID</span>( u(<span class="var">UID</span>, <span class="var">UName</span>, _) ∧
+    ∀<span class="var">FID</span>( f(<span class="var">UID</span>, <span class="var">FID</span>) ⇒
+        ∃<span class="var">SID</span>( s(<span class="var">SID</span>, <span class="var">FID</span>, _, _, <span class="str">'Ski'</span>) )
+    )
+)}</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Sicherheit von Ausdrücken</div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Sichere vs. unsichere Ausdrücke</span></div>
+      <div class="desc">Ein Ausdruck ist sicher wenn er kein unendliches Ergebnis produzieren kann. Freie Variablen müssen range-restricted sein.</div>
+      <div class="code"><span class="cmt">-- UNSICHER: alle Tupel NICHT in student → unendlich viele</span>
+{ &lt;<span class="var">s</span>, <span class="var">n</span>, <span class="var">d</span>&gt; | ¬( &lt;<span class="var">s</span>, <span class="var">n</span>, <span class="var">d</span>&gt; ∈ student ) }
+
+<span class="cmt">-- SICHER: s ist durch ersten Teil auf student-Werte beschränkt</span>
+{ &lt;<span class="var">s</span>&gt; | &lt;<span class="var">s</span>, <span class="var">n</span>, <span class="var">d</span>&gt; ∈ student ∧ ¬∃&lt;<span class="var">s</span>, <span class="var">c</span>&gt; ∈ lecture }</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════ DRL ══════════════════════════ -->
+<div id="drl" class="panel">
 
   <div class="section">
     <div class="section-title">Grundstruktur</div>
@@ -273,7 +304,6 @@
     </div>
     <div class="card">
       <div class="cmd-header"><span class="cmd-name">DISTINCT</span></div>
-      <div class="desc">Entfernt doppelte Tupel aus dem Ergebnis.</div>
       <div class="code"><span class="kw">SELECT DISTINCT</span> date_of_birth <span class="kw">FROM</span> student;</div>
     </div>
   </div>
@@ -281,20 +311,11 @@
   <div class="section">
     <div class="section-title">Filterung & Prädikate</div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">BETWEEN</span></div>
-      <div class="desc">Wertebereich (inklusiv an beiden Enden).</div>
-      <div class="code"><span class="kw">WHERE</span> date_of_birth <span class="kw">BETWEEN</span> <span class="str">'1992-01-01'</span> <span class="kw">AND</span> <span class="str">'1994-01-01'</span></div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">LIKE</span></div>
-      <div class="desc">Muster-Vergleich. <code>%</code> = beliebig viele Zeichen, <code>_</code> = genau ein Zeichen.</div>
-      <div class="code"><span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'Sm%'</span>         <span class="cmt">-- startet mit "Sm"</span>
-<span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'_ones'</span>       <span class="cmt">-- ein beliebiges Zeichen, dann "ones"</span></div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">AND / OR / NOT</span></div>
-      <div class="desc">Logische Verknüpfung von Prädikaten im WHERE.</div>
-      <div class="code"><span class="kw">WHERE</span> age &gt; <span class="num">18</span> <span class="kw">AND NOT</span> name = <span class="str">'admin'</span></div>
+      <div class="cmd-header"><span class="cmd-name">BETWEEN / LIKE / NULL</span></div>
+      <div class="code"><span class="kw">WHERE</span> date_of_birth <span class="kw">BETWEEN</span> <span class="str">'1992-01-01'</span> <span class="kw">AND</span> <span class="str">'1994-01-01'</span>
+<span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'Sm%'</span>          <span class="cmt">-- % = beliebig viele Zeichen</span>
+<span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'_mith'</span>        <span class="cmt">-- _ = genau ein Zeichen</span>
+<span class="kw">WHERE</span> date_of_birth <span class="kw">IS NULL</span>    <span class="cmt">-- NULL-Prüfung mit IS, nicht =</span></div>
     </div>
   </div>
 
@@ -302,31 +323,22 @@
     <div class="section-title">Joins & Mengenoperationen</div>
     <div class="card">
       <div class="cmd-header"><span class="cmd-name">JOIN (implizit)</span></div>
-      <div class="desc">Verbindet Relationen im FROM, Join-Bedingung im WHERE. Aliases vermeiden Namenskonflikte.</div>
       <div class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> student S, attends A, lecture L
 <span class="kw">WHERE</span>  S.stud_no = A.stud_no
 <span class="kw">AND</span>    A.course_no = L.course_no;</div>
     </div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">UNION / UNION ALL</span></div>
-      <div class="desc">Vereinigung. UNION entfernt Duplikate automatisch, UNION ALL behält sie.</div>
-      <div class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> prof1
-<span class="kw">UNION</span>
-<span class="kw">SELECT</span> * <span class="kw">FROM</span> prof2;</div>
+      <div class="cmd-header"><span class="cmd-name">JOIN (explizit)</span></div>
+      <div class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> R
+  [<span class="kw">NATURAL</span> | <span class="kw">LEFT OUTER</span> | <span class="kw">RIGHT OUTER</span> | <span class="kw">FULL OUTER</span>]
+  <span class="kw">JOIN</span> S [<span class="kw">ON</span> R.A = S.B];</div>
     </div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">INTERSECT</span></div>
-      <div class="desc">Schnittmenge — nur Tupel die in beiden Ergebnissen vorkommen.</div>
-      <div class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> prof1
-<span class="kw">INTERSECT</span>
-<span class="kw">SELECT</span> * <span class="kw">FROM</span> prof2;</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">EXCEPT</span></div>
-      <div class="desc">Differenz — Tupel die nur in der ersten, nicht in der zweiten Relation vorkommen.</div>
-      <div class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> prof1
-<span class="kw">EXCEPT</span>
-<span class="kw">SELECT</span> * <span class="kw">FROM</span> prof2;</div>
+      <div class="cmd-header"><span class="cmd-name">UNION / INTERSECT / EXCEPT</span></div>
+      <div class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> prof1 <span class="kw">UNION</span>     <span class="kw">SELECT</span> * <span class="kw">FROM</span> prof2;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> prof1 <span class="kw">INTERSECT</span> <span class="kw">SELECT</span> * <span class="kw">FROM</span> prof2;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> prof1 <span class="kw">EXCEPT</span>    <span class="kw">SELECT</span> * <span class="kw">FROM</span> prof2;</div>
+      <div class="note">UNION ALL behält Duplikate. UNION entfernt sie automatisch.</div>
     </div>
   </div>
 
@@ -334,24 +346,11 @@
     <div class="section-title">Aggregation & Gruppierung</div>
     <div class="card">
       <div class="cmd-header"><span class="cmd-name">Aggregatfunktionen</span></div>
-      <div class="desc">Fassen Spaltenwerte zu einem einzelnen Wert zusammen.</div>
-      <div class="code"><span class="kw">SELECT</span> count(*)           <span class="cmt">-- Anzahl Tupel</span>
-<span class="kw">SELECT</span> count(<span class="kw">DISTINCT</span> x)  <span class="cmt">-- Anzahl eindeutiger Werte</span>
-<span class="kw">SELECT</span> sum(credits)       <span class="cmt">-- Summe</span>
-<span class="kw">SELECT</span> avg(credits)       <span class="cmt">-- Durchschnitt</span>
-<span class="kw">SELECT</span> max(stud_no)       <span class="cmt">-- Maximum</span>
-<span class="kw">SELECT</span> min(stud_no)       <span class="cmt">-- Minimum</span></div>
+      <div class="code"><span class="kw">SELECT</span> count(*), count(<span class="kw">DISTINCT</span> x), sum(x), avg(x), max(x), min(x)</div>
     </div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">GROUP BY</span></div>
-      <div class="desc">Teilt Tupel in Gruppen, aggregiert jede separat. Alle nicht-aggregierten Attribute im SELECT müssen im GROUP BY stehen.</div>
-      <div class="code"><span class="kw">SELECT</span>   course_no, count(*) <span class="kw">AS</span> no_of_students
-<span class="kw">FROM</span>     attends
-<span class="kw">GROUP BY</span> course_no;</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">HAVING</span></div>
-      <div class="desc">Filtert Gruppen nach der Aggregation. WHERE läuft vor GROUP BY, HAVING danach.</div>
+      <div class="cmd-header"><span class="cmd-name">GROUP BY + HAVING</span></div>
+      <div class="desc">Alle nicht-aggregierten Attribute im SELECT müssen im GROUP BY stehen. HAVING filtert nach der Aggregation.</div>
       <div class="code"><span class="kw">SELECT</span>   prof_pers_no, count(*) <span class="kw">AS</span> no_of_lect
 <span class="kw">FROM</span>     lecture
 <span class="kw">GROUP BY</span> prof_pers_no
@@ -360,117 +359,54 @@
   </div>
 
   <div class="section">
-    <div class="section-title">Sortierung & Subqueries</div>
+    <div class="section-title">Sortierung, Subqueries & Views</div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">ORDER BY</span></div>
-      <div class="desc">Sortiert das Ergebnis. Standard ist ASC (aufsteigend). Mehrere Attribute möglich.</div>
-      <div class="code"><span class="kw">SELECT</span> * <span class="kw">FROM</span> student
-<span class="kw">ORDER BY</span> date_of_birth <span class="kw">DESC</span>, name <span class="kw">ASC</span>;</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">IN — unkorrelierte Subquery</span></div>
-      <div class="desc">Innere Query läuft einmal, unabhängig von der äusseren. Prüft ob Wert im Ergebnis enthalten ist.</div>
-      <div class="code"><span class="kw">SELECT</span> name <span class="kw">FROM</span> student S
-<span class="kw">WHERE</span>  S.stud_no <span class="kw">IN</span> (
-  <span class="kw">SELECT</span> stud_no <span class="kw">FROM</span> attends
-  <span class="kw">WHERE</span>  course_no = <span class="num">5</span>
-);</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">EXISTS — korrelierte Subquery</span></div>
-      <div class="desc">Innere Query läuft für jedes Tupel der äusseren Query neu. EXISTS ist true wenn Subquery ≥ 1 Tupel liefert.</div>
-      <div class="code"><span class="kw">SELECT DISTINCT</span> P.name
-<span class="kw">FROM</span> professor P, assistant A
-<span class="kw">WHERE</span> A.mgr = P.pers_no
-<span class="kw">AND EXISTS</span> (
-  <span class="kw">SELECT</span> * <span class="kw">FROM</span> assistant B
-  <span class="kw">WHERE</span>  B.mgr = P.pers_no
-  <span class="kw">AND NOT</span> B.area = A.area
-);</div>
-    </div>
-  </div>
+      <div class="cmd-header"><span class="cmd-name">ORDER BY / IN / EXISTS</span></div>
+      <div class="code"><span class="kw">ORDER BY</span> date_of_birth <span class="kw">DESC</span>, name <span class="kw">ASC</span>;
 
-  <div class="section">
-    <div class="section-title">Views & temporäre Views</div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">CREATE VIEW</span></div>
-      <div class="desc">Erstellt eine persistente virtuelle Relation. Update nur möglich wenn: eine Base-Relation, Key vorhanden, kein Aggregat / GROUP BY / DISTINCT.</div>
-      <div class="code"><span class="kw">CREATE VIEW</span> aboveAvgCredits <span class="kw">AS</span>
-  <span class="kw">SELECT</span> course_no, prof_pers_no
-  <span class="kw">FROM</span>   lecture
-  <span class="kw">WHERE</span>  credits &gt; (<span class="kw">SELECT</span> avg(credits) <span class="kw">FROM</span> lecture);</div>
+<span class="kw">WHERE</span> stud_no <span class="kw">IN</span> (<span class="kw">SELECT</span> stud_no <span class="kw">FROM</span> attends <span class="kw">WHERE</span> course_no = <span class="num">5</span>);
+
+<span class="kw">WHERE EXISTS</span> (<span class="kw">SELECT</span> * <span class="kw">FROM</span> assistant B <span class="kw">WHERE</span> B.mgr = P.pers_no);</div>
     </div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">WITH — temporäre View</span></div>
-      <div class="desc">Existiert nur für die aktuelle Query. Mehrere temporäre Views durch Komma trennbar.</div>
-      <div class="code"><span class="kw">WITH</span> aboveAvgCredits(cno, pno) <span class="kw">AS</span> (
-  <span class="kw">SELECT</span> course_no, prof_pers_no
-  <span class="kw">FROM</span>   lecture
-  <span class="kw">WHERE</span>  credits &gt; (<span class="kw">SELECT</span> avg(credits) <span class="kw">FROM</span> lecture)
-)
-<span class="kw">SELECT</span> * <span class="kw">FROM</span> aboveAvgCredits;</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">WITH RECURSIVE</span></div>
-      <div class="desc">Berechnet transitive Hüllen. Startet mit Initial-Query, führt rekursive Query iterativ aus bis keine neuen Zeilen hinzukommen.</div>
-      <div class="code"><span class="kw">WITH RECURSIVE</span> req(courseno) <span class="kw">AS</span> (
-  <span class="kw">SELECT</span> prerequisite <span class="kw">FROM</span> requires   <span class="cmt">-- initial</span>
-  <span class="kw">WHERE</span>  advanced = <span class="num">5259</span>
+      <div class="cmd-header"><span class="cmd-name">CREATE VIEW / WITH / WITH RECURSIVE</span></div>
+      <div class="code"><span class="kw">CREATE VIEW</span> myView <span class="kw">AS SELECT</span> ... ;
+
+<span class="kw">WITH</span> tmp <span class="kw">AS</span> (<span class="kw">SELECT</span> ...) <span class="kw">SELECT</span> * <span class="kw">FROM</span> tmp;
+
+<span class="kw">WITH RECURSIVE</span> r(a) <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> ...          <span class="cmt">-- initial</span>
   <span class="kw">UNION</span>
-  <span class="kw">SELECT</span> r.prerequisite               <span class="cmt">-- rekursiv</span>
-  <span class="kw">FROM</span>   requires r, req q
-  <span class="kw">WHERE</span>  q.courseno = r.advanced
-)
-<span class="kw">SELECT</span> * <span class="kw">FROM</span> req;</div>
+  <span class="kw">SELECT</span> ...          <span class="cmt">-- rekursiv (läuft bis keine neuen Zeilen)</span>
+) <span class="kw">SELECT</span> * <span class="kw">FROM</span> r;</div>
     </div>
   </div>
 
 </div>
 
-<!-- DML -->
+<!-- ══════════════════════════ DML ══════════════════════════ -->
 <div id="dml" class="panel">
 
   <div class="section">
-    <div class="section-title">Daten einfügen</div>
+    <div class="section-title">INSERT</div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">INSERT INTO … VALUES</span><span class="badge badge-dml">vollständig</span></div>
-      <div class="desc">Fügt ein Tupel mit Werten für alle Attribute ein.</div>
-      <div class="code"><span class="kw">INSERT INTO</span> professor
-<span class="kw">VALUES</span>(<span class="num">123456</span>, <span class="str">'Kossmann'</span>, <span class="num">012</span>);</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">INSERT INTO … VALUES</span><span class="badge badge-dml">partiell</span></div>
-      <div class="desc">Nur angegebene Attribute werden gesetzt, der Rest erhält NULL (oder DEFAULT). Key muss immer angegeben werden.</div>
-      <div class="code"><span class="kw">INSERT INTO</span> professor(pers_no, name)
-<span class="kw">VALUES</span>(<span class="num">123456</span>, <span class="str">'Kossmann'</span>);
-<span class="cmt">-- → (123456, 'Kossmann', NULL)</span></div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">INSERT INTO … SELECT</span><span class="badge badge-dml">aus Relation</span></div>
-      <div class="desc">Kopiert Daten aus einer anderen Relation (oder Query-Ergebnis).</div>
-      <div class="code"><span class="kw">INSERT INTO</span> professor(pers_no, name)
-<span class="kw">SELECT</span> pers_no, name
-<span class="kw">FROM</span>   assistant
-<span class="kw">WHERE</span>  pers_no = <span class="num">111111</span>;</div>
+      <div class="code"><span class="kw">INSERT INTO</span> professor <span class="kw">VALUES</span>(<span class="num">123456</span>, <span class="str">'Kossmann'</span>, <span class="num">012</span>);
+
+<span class="kw">INSERT INTO</span> professor(pers_no, name) <span class="kw">VALUES</span>(<span class="num">123456</span>, <span class="str">'Kossmann'</span>);
+<span class="cmt">-- nicht angegebene Attribute → NULL  (Key muss immer angegeben!)</span>
+
+<span class="kw">INSERT INTO</span> professor(pers_no, name)
+<span class="kw">SELECT</span> pers_no, name <span class="kw">FROM</span> assistant <span class="kw">WHERE</span> pers_no = <span class="num">111111</span>;</div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">Daten löschen</div>
+    <div class="section-title">DELETE / UPDATE</div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">DELETE FROM … WHERE</span></div>
-      <div class="desc">Löscht alle Tupel die das Prädikat erfüllen.</div>
-      <div class="code"><span class="kw">DELETE FROM</span> professor
-<span class="kw">WHERE</span>  pers_no = <span class="num">123456</span>;</div>
-      <div class="warn">Ohne WHERE werden ALLE Tupel der Tabelle gelöscht!</div>
+      <div class="code"><span class="kw">DELETE FROM</span> professor <span class="kw">WHERE</span> pers_no = <span class="num">123456</span>;</div>
+      <div class="warn">Ohne WHERE werden ALLE Tupel gelöscht!</div>
     </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Daten ändern</div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">UPDATE … SET … WHERE</span></div>
-      <div class="desc">Ändert Attributwerte der Tupel die WHERE erfüllen. Mehrere Attribute im SET durch Komma trennbar.</div>
       <div class="code"><span class="kw">UPDATE</span> professor
 <span class="kw">SET</span>    office_no = <span class="num">121</span>
 <span class="kw">WHERE</span>  pers_no = <span class="num">123456</span>;</div>
@@ -479,104 +415,59 @@
 
 </div>
 
-<!-- DDL -->
+<!-- ══════════════════════════ DDL ══════════════════════════ -->
 <div id="ddl" class="panel">
 
   <div class="section">
-    <div class="section-title">Relationen erstellen</div>
+    <div class="section-title">CREATE TABLE + Constraints</div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">CREATE TABLE</span></div>
-      <div class="desc">Erstellt eine neue Relation mit Attributen und Datentypen.</div>
       <div class="code"><span class="kw">CREATE TABLE</span> professor (
-  pers_no   integer,
-  name      varchar(<span class="num">80</span>),
-  office_no integer
+  pers_no   integer      <span class="kw">NOT NULL PRIMARY KEY</span>,
+  name      varchar(<span class="num">80</span>)  <span class="kw">NOT NULL</span>,
+  office_no integer      <span class="kw">UNIQUE CHECK</span> (office_no &gt; <span class="num">0</span>),
+  area      varchar(<span class="num">200</span>) <span class="kw">DEFAULT</span> <span class="str">'computer science'</span>
 );</div>
+    </div>
+    <div class="card">
+      <div class="cmd-header"><span class="cmd-name">Constraint-Übersicht</span></div>
+      <table class="sym-table">
+        <tr><td>PRIMARY KEY</td><td>Primärschlüssel</td><td>implizit NOT NULL + UNIQUE</td></tr>
+        <tr><td>NOT NULL</td><td>Kein NULL</td><td>muss bei INSERT angegeben werden</td></tr>
+        <tr><td>UNIQUE</td><td>Keine Duplikate</td><td>NULL ist trotzdem erlaubt</td></tr>
+        <tr><td>CHECK</td><td>Beliebiges Prädikat</td><td>auch Subqueries möglich</td></tr>
+        <tr><td>DEFAULT</td><td>Standardwert</td><td>wenn kein Wert angegeben</td></tr>
+      </table>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">Constraints</div>
+    <div class="section-title">Foreign Key & Referentielle Integrität</div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">PRIMARY KEY</span></div>
-      <div class="desc">Definiert den Primärschlüssel. Impliziert automatisch NOT NULL und UNIQUE.</div>
-      <div class="code"><span class="kw">CREATE TABLE</span> professor (
-  pers_no integer <span class="kw">NOT NULL PRIMARY KEY</span>,
-  name    varchar(<span class="num">80</span>)
-);</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">NOT NULL</span></div>
-      <div class="desc">Attribut muss bei jedem INSERT einen Wert haben.</div>
-      <div class="code">name varchar(<span class="num">80</span>) <span class="kw">NOT NULL</span></div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">UNIQUE</span></div>
-      <div class="desc">Keine doppelten Werte erlaubt. Im Gegensatz zu PRIMARY KEY kann UNIQUE-Attribut NULL sein.</div>
-      <div class="code">office_no integer <span class="kw">UNIQUE</span></div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">CHECK</span></div>
-      <div class="desc">Beliebiges Prädikat als Constraint — kann auch eine vollständige SQL-Subquery enthalten.</div>
-      <div class="code"><span class="kw">CHECK</span> (office_no &gt; <span class="num">0</span> <span class="kw">AND</span> office_no &lt; <span class="num">99999</span>)
-
-<span class="cmt">-- mit Subquery:</span>
-<span class="kw">CHECK</span> (stud_no <span class="kw">NOT IN</span> (
-  <span class="kw">SELECT</span> e.stud_no <span class="kw">FROM</span> examines e
-  <span class="kw">WHERE</span>  e.course_no = attends.course_no
-  <span class="kw">AND</span>    grade &gt;= <span class="num">18</span>
-))</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">DEFAULT</span></div>
-      <div class="desc">Standardwert wenn kein Wert im INSERT angegeben wird. Ohne DEFAULT → NULL.</div>
-      <div class="code">area varchar(<span class="num">200</span>) <span class="kw">DEFAULT</span> <span class="str">'computer science'</span></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">Referentielle Integrität (Foreign Key)</div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">FOREIGN KEY … REFERENCES</span></div>
-      <div class="desc">Jeder FK-Wert muss als PK in der referenzierten Relation existieren — oder NULL sein.</div>
       <div class="code"><span class="kw">CREATE TABLE</span> lecture (
   course_no    integer <span class="kw">PRIMARY KEY</span>,
   prof_pers_no integer <span class="kw">NOT NULL</span>,
   <span class="kw">FOREIGN KEY</span> (prof_pers_no)
     <span class="kw">REFERENCES</span> professor(pers_no)
-);</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">ON DELETE / ON UPDATE</span></div>
-      <div class="desc">Verhalten wenn der referenzierte Primärschlüssel geändert oder gelöscht wird.</div>
-      <div class="code"><span class="kw">REFERENCES</span> professor(pers_no)
-  <span class="kw">ON DELETE SET NULL</span>   <span class="cmt">-- FK → NULL</span>
-  <span class="kw">ON UPDATE CASCADE</span>    <span class="cmt">-- FK-Wert wird mitgeändert</span>
-
-<span class="cmt">-- ON DELETE CASCADE   → abhängige Tupel werden mitgelöscht</span>
-<span class="cmt">-- (kein Keyword)      → RESTRICT: Fehler wenn FK noch referenziert</span></div>
+    <span class="kw">ON DELETE SET NULL</span>    <span class="cmt">-- FK → NULL</span>
+    <span class="kw">ON UPDATE CASCADE</span>     <span class="cmt">-- FK-Wert wird mitgeändert</span>
+);
+<span class="cmt">-- ON DELETE CASCADE  → abhängige Tupel werden mitgelöscht</span>
+<span class="cmt">-- (keine Angabe)     → RESTRICT: Fehler wenn noch referenziert</span></div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">Index & Objekte entfernen</div>
+    <div class="section-title">Index & DROP</div>
     <div class="card">
-      <div class="cmd-header"><span class="cmd-name">CREATE INDEX</span></div>
-      <div class="desc">Erstellt einen Index für schnellere Abfragen. DBMS erstellt automatisch einen Index auf dem PK. Vorsicht: verlangsamt Updates.</div>
-      <div class="code"><span class="kw">CREATE</span> [<span class="kw">UNIQUE</span>] <span class="kw">INDEX</span> idx_name
-<span class="kw">ON</span> relation (attribut [<span class="kw">ASC</span>|<span class="kw">DESC</span>]);</div>
-    </div>
-    <div class="card">
-      <div class="cmd-header"><span class="cmd-name">DROP</span></div>
-      <div class="desc">Entfernt Relationen, Views oder Indexe vollständig und unwiderruflich.</div>
-      <div class="code"><span class="kw">DROP TABLE</span>  relation_name;
+      <div class="code"><span class="kw">CREATE</span> [<span class="kw">UNIQUE</span>] <span class="kw">INDEX</span> idx_name <span class="kw">ON</span> relation (attribut [<span class="kw">ASC</span>|<span class="kw">DESC</span>]);
+
+<span class="kw">DROP TABLE</span>  relation_name;
 <span class="kw">DROP VIEW</span>   view_name;
 <span class="kw">DROP INDEX</span>  index_name;</div>
     </div>
   </div>
 
 </div>
-
 </div>
 
 <script>
